@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.agora.rtm:rtm-sdk:1.5.3@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c2acbde3a32a8088621bdb9aeffd88e3/transformed/jetified-rtm-sdk-1.5.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c2acbde3a32a8088621bdb9aeffd88e3/transformed/jetified-rtm-sdk-1.5.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c2acbde3a32a8088621bdb9aeffd88e3/transformed/jetified-rtm-sdk-1.5.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c2acbde3a32a8088621bdb9aeffd88e3/transformed/jetified-rtm-sdk-1.5.3/jars/libs/agora-rtm-sdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "241392398400",
+    "project_id": "vido-calling-2bb58",
+    "storage_bucket": "vido-calling-2bb58.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241392398400:android:b3f30b6c5215551588afa5",
+        "android_client_info": {
+          "package_name": "com.wekonact.videocall.video"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241392398400-v2iebhki8ccf7k5qug1phkej80jplu5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnYy_Djob7-4Ll1fQ6hwvl5nxlNywrvPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241392398400-v2iebhki8ccf7k5qug1phkej80jplu5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
