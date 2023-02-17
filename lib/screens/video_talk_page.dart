@@ -12,9 +12,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:flutter_share/flutter_share.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../res/assets_res.dart';
@@ -87,24 +87,25 @@ class _VideoTalkPageState extends State<VideoTalkPage> {
                 userName: AppUtils.callerName,
                 callID: widget.channelName!,
                 config: callConfigs(users)),
-            Positioned(
-              right: 24,
-              top: 24,
-              child: Container(
-                width: 50,
-                height: 50,
-                padding: EdgeInsets.all(12),
-                margin: EdgeInsets.zero,
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Image.asset(
-                  "packages/wekonact_agora_video_call/${AssetsRes.IMG_COLLABORATION}",
-                  color: Colors.white,
-                ),
-              ).onTap(share),
-            )
+            if (AppUtils.isCustomer)
+              Positioned(
+                right: 24,
+                top: 24,
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  padding: EdgeInsets.all(12),
+                  margin: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Image.asset(
+                    "packages/wekonact_agora_video_call/${AssetsRes.IMG_COLLABORATION}",
+                    color: Colors.white,
+                  ),
+                ).onTap(share),
+              )
           ],
         ),
       ),
@@ -114,13 +115,11 @@ class _VideoTalkPageState extends State<VideoTalkPage> {
   Future<void> share() async {
     print(AppUtils.sharePayLoad);
 
-
     if (AppUtils.sharePayLoad.isNotEmpty) {
       await FlutterShare.share(
           title: 'Call Invitation',
           text: AppUtils.sharePayLoad,
           chooserTitle: 'Example Chooser Title');
-
     }
   }
 
@@ -156,6 +155,7 @@ class _VideoTalkPageState extends State<VideoTalkPage> {
     ];
     return ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
       ..bottomMenuBarConfig = ZegoBottomMenuBarConfig(buttons: optionsList)
+      ..useSpeakerWhenJoining = true
       ..onHangUp = () {
         print("object");
       }
