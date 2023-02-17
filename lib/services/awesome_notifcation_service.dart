@@ -164,7 +164,7 @@ class AwesomeNotificationService {
               "body": "",
               "call_type": event.body['extra']['call_type'],
               "type": "decline",
-              "channel_name": "abc"
+              "channel_name": event.body['extra']['channel_name']
             }
           });
 
