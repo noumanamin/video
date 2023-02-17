@@ -8,7 +8,7 @@ class UserListController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    getUserList();
+    // getUserList();
     super.onInit();
   }
 

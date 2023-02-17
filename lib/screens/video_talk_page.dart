@@ -13,8 +13,11 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zego_uikit_prebuilt_call_local/zego_uikit_prebuilt_call.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:flutter_share/flutter_share.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
+import '../res/assets_res.dart';
 import '../utils/app_utils.dart';
 import '../utils/keycenter.dart';
 
@@ -25,11 +28,13 @@ class VideoTalkPage extends StatefulWidget {
   final String? userToken;
   final String? channelName;
   final String? callerName;
+  bool showInvite;
 
-  const VideoTalkPage({
+  VideoTalkPage({
     Key? key,
     this.userToken,
     this.callerName,
+    this.showInvite = false,
     required this.channelName,
   }) : super(key: key);
 
@@ -47,10 +52,11 @@ class _VideoTalkPageState extends State<VideoTalkPage> {
     2.delay().then((value) async {
       // String shortLink = await getShortLink();
       // ZegoAppUtils.sharePayLoad = shortLink;
-      print(ZegoAppUtils.sharePayLoad);
+      // print(ZegoAppUtils.sharePayLoad);
     });
     timer = Timer.periodic(Duration(seconds: 5), (timers) {
       users = ZegoUIKit.instance.getAllUsers().length;
+      // ZegoUIKit.instanc
       print("${timers.tick}");
       if (timers.tick % 3 == 0) {
         users = 4;
@@ -71,14 +77,51 @@ class _VideoTalkPageState extends State<VideoTalkPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ZegoUIKitPrebuiltCall(
-          appID: KeyCenter.instance.appID,
-          appSign: KeyCenter.instance.appSign,
-          userID: localUserID,
-          userName: AppUtils.callerName,
-          callID: widget.channelName!,
-          config: callConfigs(users)),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            ZegoUIKitPrebuiltCall(
+                appID: KeyCenter.instance.appID,
+                appSign: KeyCenter.instance.appSign,
+                userID: localUserID,
+                userName: AppUtils.callerName,
+                callID: widget.channelName!,
+                config: callConfigs(users)),
+            Positioned(
+              right: 24,
+              top: 24,
+              child: Container(
+                width: 50,
+                height: 50,
+                padding: EdgeInsets.all(12),
+                margin: EdgeInsets.zero,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Image.asset(
+                  AssetsRes.IMG_COLLABORATION,
+                  color: Colors.white,
+                ),
+              ).onTap(share),
+            )
+          ],
+        ),
+      ),
     );
+  }
+
+  Future<void> share() async {
+    print(AppUtils.sharePayLoad);
+
+
+    if (AppUtils.sharePayLoad.isNotEmpty) {
+      await FlutterShare.share(
+          title: 'Call Invitation',
+          text: AppUtils.sharePayLoad,
+          chooserTitle: 'Example Chooser Title');
+
+    }
   }
 
   callConfigs(int usersCount) {
@@ -103,16 +146,16 @@ class _VideoTalkPageState extends State<VideoTalkPage> {
     //       Navigator.of(context).pop();
     //     };
     // }
+    var optionsList = [
+      ZegoMenuBarButtonName.toggleCameraButton,
+      ZegoMenuBarButtonName.toggleMicrophoneButton,
+      ZegoMenuBarButtonName.hangUpButton,
+      ZegoMenuBarButtonName.switchAudioOutputButton,
+      ZegoMenuBarButtonName.switchCameraButton,
+      ZegoMenuBarButtonName.showMemberListButton,
+    ];
     return ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
-      ..bottomMenuBarConfig = ZegoBottomMenuBarConfig(buttons: [
-        ZegoMenuBarButtonName.toggleCameraButton,
-        ZegoMenuBarButtonName.toggleMicrophoneButton,
-        ZegoMenuBarButtonName.hangUpButton,
-        ZegoMenuBarButtonName.switchAudioOutputButton,
-        ZegoMenuBarButtonName.inviteCallButton,
-        ZegoMenuBarButtonName.switchCameraButton,
-        ZegoMenuBarButtonName.showMemberListButton,
-      ])
+      ..bottomMenuBarConfig = ZegoBottomMenuBarConfig(buttons: optionsList)
       ..onHangUp = () {
         print("object");
       }

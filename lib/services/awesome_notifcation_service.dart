@@ -56,6 +56,7 @@ class AwesomeNotificationService {
         VideoTalkPage(
           channelName: payload['channel_name'],
           userToken: payload['user_token'],
+          showInvite: AppUtils.isCustomer,
         ),
       );
       // if (payload['call_type'] == "audio") {
@@ -127,6 +128,7 @@ class AwesomeNotificationService {
               VideoTalkPage(
                 channelName: event.body['extra']['channel_name'],
                 userToken: event.body['extra']['user_token'],
+                showInvite: AppUtils.isCustomer,
               ),
             );
           });

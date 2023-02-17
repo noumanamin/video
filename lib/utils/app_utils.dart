@@ -15,6 +15,9 @@ class AppUtils {
   static String urlPrefix = '';
   static String webLink = '';
   static String userName = '';
+  static String sharePayLoad = '';
+
+  static bool isCustomer = false;
 
   static var fireStore;
   static var messaging;

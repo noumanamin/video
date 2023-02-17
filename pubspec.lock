@@ -231,7 +231,7 @@ packages:
     source: hosted
     version: "5.6.0"
   flutter_share:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_share
       url: "https://pub.dartlang.org"
@@ -331,6 +331,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  mime:
+    dependency: transitive
+    description:
+      name: mime
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   native_device_orientation:
     dependency: transitive
     description:
@@ -471,6 +478,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+  share:
+    dependency: "direct main"
+    description:
+      name: share
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
   shared_preferences:
     dependency: transitive
     description:
@@ -671,23 +685,28 @@ packages:
       name: zego_express_engine
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.3"
+    version: "3.2.0+1"
+  zego_plugin_adapter:
+    dependency: transitive
+    description:
+      name: zego_plugin_adapter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   zego_uikit:
     dependency: transitive
     description:
       name: zego_uikit
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.1"
-  zego_uikit_prebuilt_call_local:
+    version: "2.0.1"
+  zego_uikit_prebuilt_call:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "2db47882e9f3e9f5a7c405a93eb085a4f42ac807"
-      url: "https://github.com/noumanamin/zego_uikit_prebuilt_call_local"
-    source: git
-    version: "1.4.2"
+      name: zego_uikit_prebuilt_call
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
 sdks:
   dart: ">=2.18.2 <3.0.0"
   flutter: ">=3.0.0"

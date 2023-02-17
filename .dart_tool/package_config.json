@@ -290,6 +290,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mime",
+      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/mime-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "native_device_orientation",
       "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/native_device_orientation-1.1.4",
       "packageUri": "lib/",
@@ -408,6 +414,12 @@
       "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/process-4.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "share",
+      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/share-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "shared_preferences",
@@ -579,19 +591,25 @@
     },
     {
       "name": "zego_express_engine",
-      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/zego_express_engine-3.0.3",
+      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/zego_express_engine-3.2.0+1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
-      "name": "zego_uikit",
-      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/zego_uikit-1.9.1",
+      "name": "zego_plugin_adapter",
+      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/zego_plugin_adapter-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
-      "name": "zego_uikit_prebuilt_call_local",
-      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/git/zego_uikit_prebuilt_call_local-2db47882e9f3e9f5a7c405a93eb085a4f42ac807/",
+      "name": "zego_uikit",
+      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/zego_uikit-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "zego_uikit_prebuilt_call",
+      "rootUri": "file:///Users/noumanamin/Desktop/Archive/flutter3.7/.pub-cache/hosted/pub.dartlang.org/zego_uikit_prebuilt_call-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -602,7 +620,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-02-15T13:27:57.500478Z",
+  "generated": "2023-02-16T10:11:20.545534Z",
   "generator": "pub",
   "generatorVersion": "2.18.4"
 }
