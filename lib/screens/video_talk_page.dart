@@ -100,7 +100,7 @@ class _VideoTalkPageState extends State<VideoTalkPage> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Image.asset(
-                  AssetsRes.IMG_COLLABORATION,
+                  "packages/wekonact_agora_video_call/${AssetsRes.IMG_COLLABORATION}",
                   color: Colors.white,
                 ),
               ).onTap(share),

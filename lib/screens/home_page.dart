@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:wekonact_agora_video_call/screens/call_connection_screen.dart';
 import 'package:wekonact_agora_video_call/screens/video_talk_page.dart';
 import 'package:wekonact_agora_video_call/utils/app_utils.dart';
@@ -73,8 +72,8 @@ class WeKonactHomePageState extends State<WeKonactHomePage> {
           : _validateError = false;
     });
 
-    await handleCameraAndMic(Permission.camera);
-    await handleCameraAndMic(Permission.microphone);
+    // await handleCameraAndMic(Permission.camera);
+    // await handleCameraAndMic(Permission.microphone);
 
     // Get.to(() => CallPage(
     //       channelName: myController.text,
@@ -140,37 +139,37 @@ class WeKonactHomePageState extends State<WeKonactHomePage> {
     ).marginOnly(left: 12, right: 12, top: index == 0 ? 12 : 0);
   }
 }
-  openDialog({callType, required channelId}) {
-    dialCall("audio", channelId);
-    // Get.dialog(CallTypeDialog(
-    //   onTapBtn: (value) {
-    //     dialCall(
-    //       value,
-    //     );
-    //   },
-    // ));
-  }
 
-  void dialCall(String callType, channelId) {
-    Get.back();
-    NotificationClient().sendNotification({
-      "to": AppUtils.receiverToken,
-      "data": {
-        "title": AppUtils.senderName,
-        "body": "",
-        "type": "in_coming_call",
-        "channel_name": channelId,
-        "alert_type": "call",
-        "call_type": callType,
-        "user_token": AppUtils.senderToken
-      }
-    });
+openDialog({callType, required channelId}) {
+  dialCall("audio", channelId);
+  // Get.dialog(CallTypeDialog(
+  //   onTapBtn: (value) {
+  //     dialCall(
+  //       value,
+  //     );
+  //   },
+  // ));
+}
 
-    Get.to(() => CallConnectionScreen(token: AppUtils.receiverToken));
-  }
+void dialCall(String callType, channelId) {
+  Get.back();
+  NotificationClient().sendNotification({
+    "to": AppUtils.receiverToken,
+    "data": {
+      "title": AppUtils.senderName,
+      "body": "",
+      "type": "in_coming_call",
+      "channel_name": channelId,
+      "alert_type": "call",
+      "call_type": callType,
+      "user_token": AppUtils.senderToken
+    }
+  });
 
-  Future<void> handleCameraAndMic(Permission permission) async {
-    final status = await permission.request();
-    print(status);
-  }
+  Get.to(() => CallConnectionScreen(token: AppUtils.receiverToken));
+}
 
+// Future<void> handleCameraAndMic(Permission permission) async {
+//   final status = await permission.request();
+//   print(status);
+// }

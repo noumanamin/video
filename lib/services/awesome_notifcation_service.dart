@@ -118,7 +118,7 @@ class AwesomeNotificationService {
               "body": "",
               "call_type": event.body['extra']['call_type'],
               "type": "call_accepted",
-              "channel_name": "abc",
+              "channel_name": event.body['extra']['channel_name'],
               "user_token": userToken
             }
           });
