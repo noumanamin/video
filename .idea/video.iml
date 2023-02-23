@@ -90,6 +90,12 @@
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtc_engine/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtc_engine/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtc_engine/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtm/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtm/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtm/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtm/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtm/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/agora_rtm/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

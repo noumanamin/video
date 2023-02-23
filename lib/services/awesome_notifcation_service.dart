@@ -7,9 +7,10 @@ import 'package:flutter_callkit_incoming/entities/call_kit_params.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:get/get.dart';
 import 'package:wekonact_agora_video_call/client/notification_client.dart';
-import 'package:wekonact_agora_video_call/screens/video_talk_page.dart';
 import 'package:wekonact_agora_video_call/services/firebase_service.dart';
 import 'package:wekonact_agora_video_call/utils/app_utils.dart';
+
+import '../screens/call_screen.dart';
 
 class AwesomeNotificationService {
   //
@@ -53,10 +54,9 @@ class AwesomeNotificationService {
     } else if (payload["type"] == "call_accepted") {
       print("accepted");
       Get.off(
-        VideoTalkPage(
+        CallPage(
           channelName: payload['channel_name'],
           userToken: payload['user_token'],
-          showInvite: AppUtils.isCustomer,
         ),
       );
       // if (payload['call_type'] == "audio") {
@@ -125,10 +125,9 @@ class AwesomeNotificationService {
 
           3.delay().then((value) {
             Get.to(
-              VideoTalkPage(
+              CallPage(
                 channelName: event.body['extra']['channel_name'],
                 userToken: event.body['extra']['user_token'],
-                showInvite: AppUtils.isCustomer,
               ),
             );
           });

@@ -11,6 +11,7 @@ import '../client/notification_client.dart';
 import '../controllers/user_list_controller.dart';
 import '../services/firebase_service.dart';
 import '../widget/call_type_dialog.dart';
+import 'call_screen.dart';
 
 class WeKonactHomePage extends StatefulWidget {
   WeKonactHomePage({instance, messaging, userId}) {
@@ -51,7 +52,7 @@ class WeKonactHomePageState extends State<WeKonactHomePage> {
                     color: Colors.amber,
                     onTap: () {
                       AppUtils.callerName = "Nouman Amin";
-                      Get.to(VideoTalkPage(channelName: "abc"));
+                      Get.to(CallPage(channelName: "abc", userToken: '',));
                     },
                   )
                 ],
