@@ -2,22 +2,27 @@ import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../client/notification_client.dart';
 import '../main.dart';
+import '../res/assets_res.dart';
 import '../user_list.dart';
-import '../utils/utils.dart';
+import '../utils/app_utils.dart';
 
 class CallPage extends StatefulWidget {
   String? userToken;
   String? channelName;
   String? callerName;
+  bool showInvite;
 
   CallPage({
     Key? key,
-    this.channelName,
+    required this.channelName,
     this.callerName,
+    this.showInvite = false,
     required this.userToken,
   }) : super(key: key);
 
@@ -29,6 +34,7 @@ class _CallPageState extends State<CallPage> {
   static final _users = <int>[];
   final _infoStrings = <String>[];
   bool muted = false;
+  bool _isAudioOnly = false;
   RtcEngine? _engine;
   List<UserList> userList = [
     UserList(
@@ -57,7 +63,7 @@ class _CallPageState extends State<CallPage> {
   }
 
   Future<void> initialize() async {
-    if (appID.isEmpty) {
+    if (AppUtils.appId.isEmpty) {
       setState(() {
         _infoStrings.add(
           'APP_ID missing, please provide your APP_ID in settings.dart',
@@ -72,12 +78,11 @@ class _CallPageState extends State<CallPage> {
   }
 
   Future<void> _initAgoraRtcEngine() async {
-    _engine = await RtcEngine.create(appID);
+    _engine = await RtcEngine.create(AppUtils.appId);
     await _engine!.enableVideo();
     await _engine!.enableAudio();
 
-    _engine!.setAudioProfile(
-        AudioProfile.MusicStandard, AudioScenario.GameStreaming);
+    _engine!.setAudioProfile(AudioProfile.MusicStandard, AudioScenario.MEETING);
     _engine!.setVideoEncoderConfiguration(VideoEncoderConfiguration(
       dimensions: VideoDimensions(width: 1920, height: 1080),
       frameRate: VideoFrameRate.Fps30,
@@ -95,9 +100,6 @@ class _CallPageState extends State<CallPage> {
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Agora Group Video Calling'),
-        ),
         backgroundColor: Colors.black,
         body: Center(
           child: Stack(
@@ -106,8 +108,8 @@ class _CallPageState extends State<CallPage> {
               _toolbar(),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 120,
-                margin: EdgeInsets.only(top: 12),
+                height: 180,
+                margin: EdgeInsets.only(top: 48),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 180,
@@ -125,7 +127,7 @@ class _CallPageState extends State<CallPage> {
                                 index == _getRenderViews().length - 1 ? 12 : 4,
                             left: index == 1 ? 12 : 4,
                           ),
-                          color: index.isEven ? Colors.red : Colors.yellow,
+                          color: Colors.black.withOpacity(0.5),
                           child: _expandedVideoRow([
                             _getRenderViews()[index],
                           ], flex: 0),
@@ -235,21 +237,45 @@ class _CallPageState extends State<CallPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          RawMaterialButton(
-            onPressed: _onToggleMute,
+          Container(
+            width: 40,
+            height: 40,
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Image.asset(
+              _isAudioOnly
+                  ? "packages/wekonact_agora_video_call/${AssetsRes.IMG__CAMERA_ON}"
+                  : "packages/wekonact_agora_video_call/${AssetsRes.IMG_CAMERA_OFF}",
+              color: muted ? Colors.white : Colors.blueAccent,
+            ),
+          ).onTap(() {
+            toggleAudioVideo();
+          }),
+          const SizedBox(width: 12),
+          Container(
+            width: 40,
+            height: 40,
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
             child: Icon(
               muted ? Icons.mic_off : Icons.mic,
               color: muted ? Colors.white : Colors.blueAccent,
               size: 20.0,
             ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: muted ? Colors.blueAccent : Colors.white,
-            padding: const EdgeInsets.all(12.0),
-          ),
+          ).onTap(() {
+            _onToggleMute();
+          }),
           RawMaterialButton(
             onPressed: () => _onCallEnd(context),
-            child: Icon(
+            child: const Icon(
               Icons.call_end,
               color: Colors.white,
               size: 35.0,
@@ -259,21 +285,69 @@ class _CallPageState extends State<CallPage> {
             fillColor: Colors.redAccent,
             padding: const EdgeInsets.all(15.0),
           ),
-          RawMaterialButton(
-            onPressed: _onSwitchCamera,
-            child: Icon(
+          Container(
+            width: 40,
+            height: 40,
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: const Icon(
               Icons.switch_camera,
               color: Colors.blueAccent,
               size: 20.0,
             ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.white,
-            padding: const EdgeInsets.all(12.0),
-          )
+          ).onTap(() {
+            _onSwitchCamera();
+          }),
+          const SizedBox(width: 12),
+          if (AppUtils.isCustomer)
+            Container(
+              width: 40,
+              height: 40,
+              padding: EdgeInsets.all(8),
+              margin: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Image.asset(
+                "packages/wekonact_agora_video_call/${AssetsRes.IMG_COLLABORATION}",
+                // "${AssetsRes.IMG_COLLABORATION}",
+                color: Colors.blueAccent,
+              ),
+            ).onTap(() {
+              share();
+            })
         ],
       ),
     );
+  }
+
+  void toggleAudioVideo() {
+    setState(() {
+      _isAudioOnly = !_isAudioOnly;
+      if (_isAudioOnly) {
+        _engine!.setClientRole(ClientRole.Audience);
+        _engine!.disableVideo();
+      } else {
+        _engine!.setClientRole(ClientRole.Audience);
+        _engine!.enableVideo();
+      }
+    });
+  }
+
+  Future<void> share() async {
+    print(AppUtils.sharePayLoad);
+
+    if (AppUtils.sharePayLoad.isNotEmpty) {
+      await FlutterShare.share(
+          title: 'Call Invitation',
+          text: AppUtils.sharePayLoad,
+          chooserTitle: 'Example Chooser Title');
+    }
   }
 
   void _onSwitchCamera() {
@@ -307,7 +381,7 @@ class _CallPageState extends State<CallPage> {
     list.add(RtcLocalView.SurfaceView());
     _users.forEach((int uid) => list.add(RtcRemoteView.SurfaceView(
           uid: uid,
-          channelId: "abc",
+          channelId: widget.channelName!,
         )));
     return list;
   }

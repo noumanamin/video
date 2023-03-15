@@ -8,6 +8,8 @@ class AppUtils {
   static String receiverToken = "";
   static String receiverName = "";
 
+  static String appId ='613504670dd340dba1daee589b01e9d0';
+
   static String callerName = "";
 
   static String channelId = "";
@@ -18,6 +20,9 @@ class AppUtils {
   static String sharePayLoad = '';
 
   static bool isCustomer = false;
+
+  static bool fromBackground = true;
+  static var contextApp;
 
   static var fireStore;
   static var messaging;

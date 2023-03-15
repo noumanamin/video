@@ -6,17 +6,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:wekonact_agora_video_call/screens/home_page.dart';
 
-import 'screens/call_screen.dart';
-
-const token =
-    '007eJxTYLBi13h87pdY7LygcEmJlz6fPqqIHPkooVt1byGjTpYdj4UCQ2KihaGZQYqBcYqZsYmBqWFSqoGhaaqlhXlKcpKpobHRlj9fkhsCGRlePWFiYmSAQBCfhyElNTc/PjkjMS8vNYeBAQC4OCFT';
+var token = "006613504670dd340dba1daee589b01e9d0IABDWXjC6SwxmwO8qJ3kgKdD8tHaGzlUF7qP4zd5Ds0jJVbiCHoAAAAAIgA7wQAAo7oRZAQAAQAzdxBkAwAzdxBkAgAzdxBkBAAzdxBk";
+// var token = "";
 
 void main() {
   runApp(GetMaterialApp(
     home: WeKonactHomePage(),
   ));
 }
-
 class CallScreen extends StatefulWidget {
   final String? channelId;
 
@@ -44,7 +41,7 @@ class _CallScreenState extends State<CallScreen> {
     await _rtcEngine!.setChannelProfile(ChannelProfile.Communication);
     // await _rtcEngine!.setClientRole(ClientRole.Audience);
 
-    await _rtcEngine!.joinChannel(token, "demo_channel", "Nouman", 0);
+    await _rtcEngine!.joinChannel(token, widget.channelId!, "Nouman", 0);
 
     _rtcEngine!.setEventHandler(RtcEngineEventHandler(
       error: (code) {

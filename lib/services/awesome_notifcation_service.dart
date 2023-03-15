@@ -7,10 +7,12 @@ import 'package:flutter_callkit_incoming/entities/call_kit_params.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:get/get.dart';
 import 'package:wekonact_agora_video_call/client/notification_client.dart';
+import 'package:wekonact_agora_video_call/main.dart';
 import 'package:wekonact_agora_video_call/services/firebase_service.dart';
 import 'package:wekonact_agora_video_call/utils/app_utils.dart';
 
 import '../screens/call_screen.dart';
+import '../screens/room_screen.dart';
 
 class AwesomeNotificationService {
   //
@@ -53,28 +55,29 @@ class AwesomeNotificationService {
       await FlutterCallkitIncoming.showCallkitIncoming(params);
     } else if (payload["type"] == "call_accepted") {
       print("accepted");
-      Get.off(
-        CallPage(
-          channelName: payload['channel_name'],
-          userToken: payload['user_token'],
-        ),
-      );
-      // if (payload['call_type'] == "audio") {
-      //   String rName = AppUtils.receiverName;
-      //   String sName = AppUtils.senderName;
-      //   Get.off(
-      //     RoomScreen(
-      //       channelName: payload['channel_name'],
-      //       userToken: payload['user_token'],
-      //       callerName: rName,
-      //     ),
-      //   );
-      // } else {
-      //   Get.off(CallPage(
+      // Get.off(
+      //   CallPage(
       //     channelName: payload['channel_name'],
       //     userToken: payload['user_token'],
-      //   ));
-      // }
+      //   ),
+      // );
+      if (payload['call_type'] == "audio") {
+        String rName = AppUtils.receiverName;
+        String sName = AppUtils.senderName;
+        Get.off(
+          RoomScreen(
+            channelName: payload['channel_name'],
+            userToken: payload['user_token'],
+            callerName: rName,
+          ),
+        );
+      } else {
+        Get.off(CallPage(
+          channelName: payload['channel_name'],
+          userToken: payload['user_token'],
+          showInvite: AppUtils.isCustomer,
+        ));
+      }
     } else if (payload["type"] == "decline") {
       print("accepted");
       await FlutterCallkitIncoming.endAllCalls();
@@ -111,6 +114,7 @@ class AwesomeNotificationService {
         case Event.ACTION_CALL_ACCEPT:
           print('body ' + event.body['extra']['channel_name']);
           print('body ' + event.body['extra']['call_type']);
+          AppUtils.receiverToken = event.body['extra']['user_token'];
           NotificationClient().sendNotification({
             "to": "${event.body['extra']['user_token']}",
             "data": {
@@ -123,33 +127,33 @@ class AwesomeNotificationService {
             }
           });
 
-          3.delay().then((value) {
+          // 0.delay().then((value) {
+          //   Get.to(() =>
+          //       CallPage(
+          //         channelName: event.body['extra']['channel_name'],
+          //         userToken: event.body['extra']['user_token'],
+          //       ));
+          // });
+          if (event.body['extra']['call_type'] == "audio") {
+            // Get.offAll(HomePage());
+
+            // await Future.delayed(Duration(seconds: 3));
+
             Get.to(
-              CallPage(
+              RoomScreen(
                 channelName: event.body['extra']['channel_name'],
+                callerName: event.body['nameCaller'],
                 userToken: event.body['extra']['user_token'],
               ),
             );
-          });
-          // if (event.body['extra']['call_type'] == "audio") {
-          //   // Get.offAll(HomePage());
-          //
-          //   // await Future.delayed(Duration(seconds: 3));
-          //
-          //   Get.to(
-          //     RoomScreen(
-          //       channelName: event.body['extra']['channel_name'],
-          //       callerName: event.body['nameCaller'],
-          //       userToken: event.body['extra']['user_token'],
-          //     ),
-          //   );
-          // } else {
-          //   Get.to(CallPage(
-          //     channelName: event.body['extra']['channel_name'],
-          //     callerName: event.body['caller_name'],
-          //     userToken: event.body['extra']['user_token'],
-          //   ));
-          // }
+          } else {
+            Get.to(CallPage(
+              channelName: event.body['extra']['channel_name'],
+              callerName: event.body['caller_name'],
+              userToken: event.body['extra']['user_token'],
+              showInvite: AppUtils.isCustomer,
+            ));
+          }
 
           break;
         case Event.ACTION_CALL_DECLINE:
@@ -211,6 +215,7 @@ class AwesomeNotificationService {
   getParams(payload) {
     AppUtils.receiverName = payload['title'];
     AppUtils.receiverToken = payload['user_token'];
+    token = payload['rtc_token'];
     CallKitParams paramsKit = CallKitParams(
         textAccept: "Accept",
         nameCaller: payload['title'],
@@ -221,6 +226,7 @@ class AwesomeNotificationService {
           "user_name": payload['title'],
           "user_token": payload['user_token'],
           "call_type": payload['call_type'],
+          "receiver": payload['receiver'],
           "caller_name": payload['caller_name']
         });
     return paramsKit;

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:wekonact_agora_video_call/screens/call_connection_screen.dart';
-import 'package:wekonact_agora_video_call/screens/video_talk_page.dart';
 import 'package:wekonact_agora_video_call/utils/app_utils.dart';
 
 import '../client/notification_client.dart';
 import '../controllers/user_list_controller.dart';
+import '../main.dart';
 import '../services/firebase_service.dart';
 import '../widget/call_type_dialog.dart';
 import 'call_screen.dart';
@@ -50,9 +50,16 @@ class WeKonactHomePageState extends State<WeKonactHomePage> {
                     text: "Open Page",
                     textColor: Colors.black,
                     color: Colors.amber,
-                    onTap: () {
+                    onTap: () async {
                       AppUtils.callerName = "Nouman Amin";
-                      Get.to(CallPage(channelName: "abc", userToken: '',));
+                      // openDialog(callType: "audio", channelId: "abc", token: token);
+                      Get.to(CallPage(
+                        channelName: "36",
+                        callerName: "Nouman",
+                        userToken: '',
+                      ));
+                      // String tokenStr = await getRTCToken("abc");
+                      // print("RTC Token: $tokenStr");
                     },
                   )
                 ],
@@ -111,7 +118,13 @@ class WeKonactHomePageState extends State<WeKonactHomePage> {
         ).onTap(() {
           Get.dialog(CallTypeDialog(
             onTapBtn: (value) {
-              dialCall("audio", "abc");
+              // dialCall("audio", "abc");
+              AppUtils.callerName = "Nouman Amin";
+              openDialog(
+                callType: "audio",
+                channelId: "abc",
+                token: token,
+              );
             },
           ));
           // showPlatformDialog(
@@ -141,18 +154,16 @@ class WeKonactHomePageState extends State<WeKonactHomePage> {
   }
 }
 
-openDialog({callType, required channelId}) {
-  dialCall("audio", channelId);
-  // Get.dialog(CallTypeDialog(
-  //   onTapBtn: (value) {
-  //     dialCall(
-  //       value,
-  //     );
-  //   },
-  // ));
+openDialog({callType, required channelId, required token}) {
+  // dialCall("audio", channelId);
+  Get.dialog(CallTypeDialog(
+    onTapBtn: (value) {
+      dialCall(value, channelId, token);
+    },
+  ));
 }
 
-void dialCall(String callType, channelId) {
+void dialCall(String callType, channelId, token) {
   Get.back();
   NotificationClient().sendNotification({
     "to": AppUtils.receiverToken,
@@ -163,6 +174,8 @@ void dialCall(String callType, channelId) {
       "channel_name": channelId,
       "alert_type": "call",
       "call_type": callType,
+      "rtc_token": token,
+      "receiver": AppUtils.receiverToken,
       "user_token": AppUtils.senderToken
     }
   });
@@ -170,7 +183,13 @@ void dialCall(String callType, channelId) {
   Get.to(() => CallConnectionScreen(token: AppUtils.receiverToken));
 }
 
-// Future<void> handleCameraAndMic(Permission permission) async {
-//   final status = await permission.request();
-//   print(status);
-// }
+Future<String> getRTCToken(String channelName) async {
+  var response = await NotificationClient().getToken(channelName);
+  if (response.isNotEmpty) {
+    token = response;
+    print("rtc token: $token");
+    return response.toString().trim();
+  }
+
+  return "";
+}

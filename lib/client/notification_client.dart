@@ -20,9 +20,8 @@ class NotificationClient extends GetHttpClient {
     print("");
   }
 
-  saveHistory(body,url,token) async {
+  saveHistory(body, url, token) async {
     Map<String, String> requestHeaders = {
-
       "content-type": "application/json",
     };
 
@@ -32,5 +31,24 @@ class NotificationClient extends GetHttpClient {
       body: body,
     );
     print("");
+  }
+
+  Future<String> getToken(String channelName) async {
+    String urls =
+        "https://call.wekonact.pk/Tools/DynamicKey/AgoraDynamicKey/php/sample/RtcTokenBuilderSample.php?channel=$channelName";
+
+    var response = await GetHttpClient().get(
+      urls,
+    );
+    if (response.body == null) {
+      return await getToken(channelName);
+    }
+    if (response.statusCode == 200 && response.statusText == "OK") {
+      if (response.body.toString().contains("Token with int uid")) {
+        return response.body.toString().split("uid:")[1];
+      }
+    }
+
+    return "";
   }
 }

@@ -25,8 +25,9 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/accea25b22f7d698afe07415bbe7f4bd/transformed/jetified-kotlin-stdlib-jdk8-1.5.30.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/58b89bb552ea9301a4c2c3d6cef6c448/transformed/jetified-kotlin-stdlib-jdk7-1.6.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f2a530622d1f4bd1ad1db706906569af/transformed/jetified-firebase-messaging-23.1.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/c7716f2073b06cfbeef196aeac1ccd33/transformed/jetified-full-sdk-3.7.0.3-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/d186c351dd3b4ae89c97e17be5398b12/transformed/jetified-iris-rtc-3.7.0.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/8253857e8fdd914b5e212f75e440cc8d/transformed/jetified-commons-io-2.6.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/1211446bc20ea6018e6c7ebac3355d62/transformed/jetified-express-video-3.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/65fe8eb33970f08852eb590def975787/transformed/jetified-kotlin-stdlib-1.6.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/801bf3b763a16e16ac31eae9ed57ec81/transformed/jetified-firebase-datatransport-18.1.7-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b000779f671a879b1598435bb30d8041/transformed/jetified-transport-backend-cct-3.1.8-api.jar</arg>
@@ -128,23 +129,16 @@
     <content url="file://$MODULE_DIR$/../../../../build/app/generated/source/buildConfig/androidTest/debug" />
     <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="android.shared_preferences_android.main" scope="TEST" />
     <orderEntry type="module" module-name="android.nb_utils.main" scope="TEST" />
     <orderEntry type="module" module-name="android.awesome_notifications.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.flutter_vibrate.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.audioplayers_android.main" scope="TEST" />
+    <orderEntry type="module" module-name="android.agora_rtc_engine.main" scope="TEST" />
     <orderEntry type="module" module-name="android.flutter_share.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.path_provider_android.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.connectivity_plus.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.wakelock.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.shared_preferences_android.main" scope="TEST" />
-    <orderEntry type="module" module-name="com.baseflow.permissionhandler.android.permission_handler_android.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.fluttertoast.main" scope="TEST" />
     <orderEntry type="module" module-name="android.device_info_plus.main" scope="TEST" />
+    <orderEntry type="module" module-name="android.fluttertoast.main" scope="TEST" />
     <orderEntry type="module" module-name="android.share.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.flutter_logs.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.zego_express_engine.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.flutter_callkit_incoming.main" scope="TEST" />
-    <orderEntry type="module" module-name="android.native_device_orientation.main" scope="TEST" />
+    <orderEntry type="module" module-name="com.example.flutter_callkit_incoming.android.flutter_callkit_incoming.main~1" scope="TEST" />
+    <orderEntry type="module" module-name="android.connectivity_plus.main" scope="TEST" />
     <orderEntry type="module" module-name="android.app.main" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Gradle: ./../build/app/intermediates/flutter/debug/libs.jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.flutter:armeabi_v7a_debug:1.0.0-857bd6b74c5eb56151bfafe91e7fa6a82b6fee25" level="project" />
@@ -173,7 +167,8 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.window:window-java:1.0.0-beta04@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.window:window:1.0.0-beta04@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.firebase:firebase-messaging:23.1.1@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: im.zego:express-video:3.2.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: io.agora.rtc:full-sdk:3.7.0.3@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: io.agora.rtc:iris-rtc:3.7.0.3@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.firebase:firebase-datatransport:18.1.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.android.datatransport:transport-backend-cct:3.1.8@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.android.datatransport:transport-runtime:3.1.8@aar" level="project" />
